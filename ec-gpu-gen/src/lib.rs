@@ -337,7 +337,7 @@ mod tests {
 
     #[test]
     fn test_double() {
-        let mut rng = thread_rng();
+        //let mut rng = thread_rng();
         //for _ in 0..10 {
             //let a = Scalar::random(&mut rng);
             let a = Scalar::from_u64s_le(&[1,2,3,4]).unwrap();
@@ -345,7 +345,10 @@ mod tests {
             //let a = Scalar::one();
             let b = a.double();
 
-            assert_eq!(call_kernel!("test_double_32", GpuScalar(a)), b);
+            //assert_eq!(call_kernel!("test_double_32", GpuScalar(a)), b);
+            let result = call_kernel!("test_double_32", GpuScalar(a));
+            println!("vmx: result: {:?}", result.to_bytes_le());
+            assert_eq!(result, b);
             //assert_eq!(call_kernel!("test_double_64", GpuScalar(a)), b);
         //}
     }
